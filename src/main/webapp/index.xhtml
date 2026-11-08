@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>TP0 - Chat Jakarta EE</title>
+    <h:outputStylesheet name="css/tp0.css"/>
+    <h:outputScript name="js/tp0.js"/>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <h1>Chat : TP0 Jakarta EE</h1>
+
+        <p:messages id="messages" autoUpdate="true" closable="true"/>
+
+        <div class="bloc">
+            <h:outputLabel for="role" value="Rôle du système : "/>
+            <h:selectOneMenu id="role" value="#{chatBean.roleSysteme}"
+                             disabled="#{not chatBean.roleSystemeChangeable}"
+                             required="true"
+                             requiredMessage="Vous devez choisir un rôle pour le système.">
+                <f:selectItem itemLabel="-- Choisir un rôle --" itemValue="" noSelectionOption="true"/>
+                <f:selectItems value="#{chatBean.rolesDisponibles}"/>
+            </h:selectOneMenu>
+        </div>
+
+        <div class="bloc">
+            <h:outputLabel for="question" value="Votre texte :"/><br/>
+            <h:inputTextarea id="question" value="#{chatBean.question}" rows="3" cols="70"
+                             required="true"
+                             requiredMessage="Le texte à traiter ne peut pas être vide."/>
+        </div>
+
+        <div class="bloc">
+            <h:commandButton value="Envoyer" action="#{chatBean.envoyer}"/>
+            <h:commandButton value="Nouveau chat" action="#{chatBean.nouveauChat}" immediate="true"/>
+        </div>
+
+        <div class="bloc">
+            <h:outputLabel for="conversation" value="Conversation :"/><br/>
+            <h:inputTextarea id="conversation" value="#{chatBean.conversation}" rows="14" cols="70"
+                             readonly="true"/>
+        </div>
+    </h:form>
+</h:body>
+</html>
